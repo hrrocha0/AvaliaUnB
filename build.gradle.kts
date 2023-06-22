@@ -22,6 +22,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
     testImplementation(kotlin("test"))
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
 }
 
 application {
