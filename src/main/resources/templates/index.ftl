@@ -12,6 +12,6 @@
 <img src="/static/placeholder.png" alt="Placeholder">
 <img src="/static/placeholder.png" alt="Placeholder">
 -->
-    <a href="">Entrar</a>
-    <a href="">Registrar</a>
+    <a href="/entrar">Entrar</a>
+    <a href="/registrar">Registrar</a>
 </@page>
