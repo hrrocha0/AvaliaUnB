@@ -2,8 +2,16 @@
 <#include "components/base.ftl">
 <#include "components/form.ftl">
 
+<#-- @ftlvariable name="feedback" type="kotlin.collections.Map<String, Object>" -->
+
 <@page>
     <h1>Entrar</h1>
+
+    <#if feedback.type == "error">
+        <#if feedback.message??>
+            <p>${feedback.message}</p>
+        </#if>
+    </#if>
 
     <@form>
         <@field "text" "matricula" "Matrícula"/>

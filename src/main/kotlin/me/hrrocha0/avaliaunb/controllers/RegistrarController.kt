@@ -7,10 +7,13 @@ import me.hrrocha0.avaliaunb.models.RegistrarModel
 import me.hrrocha0.avaliaunb.models.data.Feedback
 import me.hrrocha0.avaliaunb.views.RegistrarView
 
-object RegistrarController : Controller {
+object RegistrarController : FeedbackController {
+    override suspend fun ApplicationCall.respondFeedback(feedback: Feedback) =
+        respondView(RegistrarView, RegistrarModel(FeedbackModel(feedback)))
+
     override fun Route.routes() {
         get {
-            call.respondView(RegistrarView, RegistrarModel(FeedbackModel(Feedback.Success())))
+            call.respondFeedback(Feedback.Success())
         }
     }
 }

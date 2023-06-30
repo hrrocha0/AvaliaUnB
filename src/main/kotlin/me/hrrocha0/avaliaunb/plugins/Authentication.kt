@@ -2,6 +2,8 @@ package me.hrrocha0.avaliaunb.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import me.hrrocha0.avaliaunb.controllers.EntrarController
+import me.hrrocha0.avaliaunb.models.data.Feedback
 
 fun Application.configureAuthentication() {
     install(Authentication) {
@@ -14,7 +16,15 @@ fun Application.configureAuthentication() {
                     UserIdPrincipal(credentials.name)
                 } else null
             }
-            challenge("/entrar")
+            challenge { credentials ->
+                with(EntrarController) {
+                    if (credentials == null || credentials.name.isBlank() || credentials.password.isBlank()) {
+                        call.respondFeedback(Feedback.Error("Preencha todos os campos corretamente."))
+                        return@challenge
+                    }
+                    call.respondFeedback(Feedback.Error("Usuário e/ou senha incorreto(s)."))
+                }
+            }
         }
     }
 }
