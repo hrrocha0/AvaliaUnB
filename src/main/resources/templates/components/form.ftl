@@ -5,10 +5,10 @@
 </#macro>
 
 <#macro field type id label="">
-    <label for="${id}">${label}</label>
-    <input type="${type}" id="${id}" name="${id}">
+    <label class="form-label" for="${id}">${label}</label>
+    <input class="form-control" type="${type}" id="${id}" name="${id}">
 </#macro>
 
 <#macro submit>
-    <button type="submit"><#nested></button>
+    <button class="btn btn-primary my-3 w-100" type="submit"><#nested></button>
 </#macro>

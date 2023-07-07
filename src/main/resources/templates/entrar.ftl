@@ -5,20 +5,32 @@
 <#-- @ftlvariable name="feedback" type="kotlin.collections.Map<String, Object>" -->
 
 <@page>
-    <h1>Entrar</h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 my-3 my-sm-5">
+            <h1 class="mb-3">Entrar</h1>
 
-    <#if feedback.type == "error">
-        <#if feedback.message??>
-            <p>${feedback.message}</p>
-        </#if>
-    </#if>
+            <#if feedback.type == "error">
+                <#if feedback.message??>
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        <div class="d-flex">
+                            <h4>Erro</h4>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                        </div>
+                        <p>${feedback.message}</p>
+                    </div>
+                </#if>
+            </#if>
 
-    <@form>
-        <@field "text" "matricula" "Matrícula"/>
-        <@field "password" "senha" "Senha"/>
+            <@form>
+                <@field "text" "matricula" "Matrícula"/>
+                <@field "password" "senha" "Senha"/>
 
-        <@submit>Entrar</@submit>
+                <@submit>Entrar</@submit>
 
-        <p>Não possui uma conta? <a href="/registrar">Registrar</a></p>
-    </@form>
+                <div class="text-center">
+                    <p>Não possui uma conta? <a href="/registrar">Registrar</a></p>
+                </div>
+            </@form>
+        </div>
+    </div>
 </@page>
