@@ -9,7 +9,7 @@ O objetivo é criar um sistema em que os estudantes possam avaliar professores e
 
 Essa implementação cumpre com os seguintes requisitos:
 
-- [ ] Modelo Entidade Relacionamento do banco de dados;
+- [X] Modelo Entidade Relacionamento do banco de dados;
 - [ ] Modelo Relacional do banco de dados;
 - [ ] Interface visual para interação com o usuário;
 - [ ] CRUD para as principais entidades do banco de dados;
