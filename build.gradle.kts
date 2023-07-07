@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
@@ -27,7 +27,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass = "io.ktor.server.netty.EngineMain"
 }
 
 tasks.test {
