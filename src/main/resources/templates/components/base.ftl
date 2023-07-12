@@ -1,5 +1,7 @@
 <#include "libraries.ftl">
 
+<#-- @ftlvariable name="perfil" type="kotlin.collections.Map<String, Object>" -->
+
 <#macro page>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -23,9 +25,15 @@
                     <li><a class="nav-link" href="">Disciplinas</a></li>
                     <li><a class="nav-link" href="">Professores</a></li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li><a class="nav-link" href="/entrar">ENTRAR</a></li>
-                </ul>
+                <#if perfil??>
+                    <ul class="navbar-nav ms-auto">
+                        <li><a class="nav-link" href="">${perfil.matricula}</a></li>
+                    </ul>
+                <#else>
+                    <ul class="navbar-nav ms-auto">
+                        <li><a class="nav-link" href="/entrar">ENTRAR</a></li>
+                    </ul>
+                </#if>
             </div>
         </div>
     </nav>

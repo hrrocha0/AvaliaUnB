@@ -26,16 +26,14 @@ fun Application.configureAuthentication() {
                 with(EntrarController) {
                     if (credentials == null || credentials.name.isBlank() || credentials.password.isBlank()) {
                         call.respondView(
-                            EntrarView, EntrarModel(
-                                feedbackModel = FeedbackModel(Feedback.ERROR, "Preencha todos os campos corretamente.")
-                            )
+                            view = EntrarView,
+                            model = EntrarModel(FeedbackModel(Feedback.ERROR, "Preencha todos os campos corretamente."))
                         )
                         return@challenge
                     }
                     call.respondView(
-                        EntrarView, EntrarModel(
-                            feedbackModel = FeedbackModel(Feedback.ERROR, "Usuário e/ou senha incorreto(s).")
-                        )
+                        view = EntrarView,
+                        model = EntrarModel(FeedbackModel(Feedback.ERROR, "Usuário e/ou senha incorreto(s)."))
                     )
                 }
             }

@@ -23,6 +23,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("io.ktor:ktor-server-freemarker:$ktor_version")
     implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-sessions:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     // Exposed/SQLite dependencies
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")

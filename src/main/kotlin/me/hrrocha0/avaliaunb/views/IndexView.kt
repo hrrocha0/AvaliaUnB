@@ -1,5 +1,5 @@
 package me.hrrocha0.avaliaunb.views
 
-import me.hrrocha0.avaliaunb.models.EmptyModel
+import me.hrrocha0.avaliaunb.models.IndexModel
 
-object IndexView : TemplateView<EmptyModel>("index.ftl")
+object IndexView : TemplateView<IndexModel>("index.ftl")
