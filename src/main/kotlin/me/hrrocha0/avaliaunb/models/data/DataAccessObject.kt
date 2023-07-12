@@ -7,7 +7,7 @@ import java.sql.ResultSet
 
 interface DataAccessObject<M : Model> {
     fun read(key: String): M?
-    fun index(predicate: (M) -> Boolean): List<M>
+    fun index(predicate: (M) -> Boolean = { true }): List<M>
 
     fun transform(resultSet: ResultSet): M
 

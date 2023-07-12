@@ -3,6 +3,7 @@
 <#include "components/form.ftl">
 
 <#-- @ftlvariable name="feedback" type="kotlin.collections.Map<String, Object>" -->
+<#-- @ftlvariable name="cursos" type="kotlin.collections.List<kotlin.collections.Map<String, Object>>" -->
 
 <@page>
     <div class="row justify-content-center">
@@ -26,6 +27,13 @@
                 <@field "email" "email" "Endereço de e-mail"/>
                 <@field "password" "senha" "Senha"/>
                 <@field "password" "confirmar" "Confirmar Senha"/>
+
+                <label for="curso">Curso</label>
+                <select class="form-select my-3" id="curso" name="curso">
+                    <#list cursos as curso>
+                        <option value="${curso.id}">${curso.nome}</option>
+                    </#list>
+                </select>
 
                 <@submit>Registrar</@submit>
 
