@@ -6,16 +6,16 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import me.hrrocha0.avaliaunb.models.EntrarModel
 import me.hrrocha0.avaliaunb.models.FeedbackModel
-import me.hrrocha0.avaliaunb.models.data.Feedback
+import me.hrrocha0.avaliaunb.models.Feedback
 import me.hrrocha0.avaliaunb.views.EntrarView
 
 object EntrarController : FeedbackController {
-    override suspend fun ApplicationCall.respondFeedback(feedback: Feedback) =
-        respondView(EntrarView, EntrarModel(FeedbackModel(feedback)))
+    override suspend fun ApplicationCall.respondFeedback(feedback: Feedback, message: String?) =
+        respondView(EntrarView, EntrarModel(FeedbackModel(feedback, message)))
 
     override fun Route.routes() {
         get {
-            call.respondFeedback(Feedback.Success())
+            call.respondFeedback(Feedback.SUCCESS)
         }
         authenticate("auth-form") {
             post {

@@ -7,7 +7,7 @@ class EmptyModelTest {
     @Test
     fun `test toMap()`() {
         val model = EmptyModel
-        val expected = mapOf<String, Nothing>()
+        val expected = mapOf<String, Any?>()
 
         assertEquals(expected, model.toMap())
     }

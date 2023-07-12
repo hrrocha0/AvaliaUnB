@@ -1,12 +1,15 @@
 package me.hrrocha0.avaliaunb.models
 
-import me.hrrocha0.avaliaunb.models.data.Estudante
-
-data class EstudanteModel(val estudante: Estudante) : Model<String> {
+data class EstudanteModel(
+    val matricula: String,
+    val nome: String,
+    val email: String,
+    val senha: String,
+) : Model {
     override fun toMap() = mapOf(
-        "matricula" to estudante.matricula,
-        "nome" to estudante.nome,
-        "email" to estudante.email,
-        "senha" to estudante.senha,
+        "matricula" to matricula,
+        "nome" to nome,
+        "email" to email,
+        "senha" to senha,
     )
 }

@@ -10,5 +10,5 @@ interface Controller {
     fun Route.routes()
     fun bindTo(route: Route) = route.routes()
 
-    suspend fun <M : Model<*>> ApplicationCall.respondView(view: View<M>, model: M) = respond(view.apply(model))
+    suspend fun <M : Model> ApplicationCall.respondView(view: View<M>, model: M) = respond(view.apply(model))
 }
