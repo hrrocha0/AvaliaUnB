@@ -9,13 +9,14 @@ import me.hrrocha0.avaliaunb.models.FeedbackModel
 import me.hrrocha0.avaliaunb.models.Feedback
 import me.hrrocha0.avaliaunb.views.EntrarView
 
-object EntrarController : FeedbackController {
-    override suspend fun ApplicationCall.respondFeedback(feedback: Feedback, message: String?) =
-        respondView(EntrarView, EntrarModel(FeedbackModel(feedback, message)))
-
+object EntrarController : Controller {
     override fun Route.routes() {
         get {
-            call.respondFeedback(Feedback.SUCCESS)
+            call.respondView(
+                EntrarView, EntrarModel(
+                    feedbackModel = FeedbackModel(Feedback.SUCCESS)
+                )
+            )
         }
         authenticate("auth-form") {
             post {

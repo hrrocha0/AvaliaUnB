@@ -1,3 +1,5 @@
+-- Criação das Relações
+
 CREATE TABLE Departamento
 (
     id    INT            NOT NULL,
@@ -48,7 +50,7 @@ CREATE TABLE Estudante
     email     VARCHAR(100) UNIQUE NOT NULL,
     senha     VARCHAR(100)        NOT NULL,
     admin     BIT                 NOT NULL,
-    id_curso  INT                 NOT NULL,
+    id_curso  INT,
     PRIMARY KEY (matricula),
     FOREIGN KEY (id_curso) REFERENCES Curso (id)
 );
@@ -104,4 +106,31 @@ CREATE TABLE Turma
     horario       VARCHAR(30),
     PRIMARY KEY (id_professor, id_disciplina, id),
     FOREIGN KEY (id_professor, id_disciplina) REFERENCES ProfessorDisciplina (id_professor, id_disciplina)
-)
+);
+
+-- Criação das Views
+
+CREATE VIEW Perfil AS
+SELECT E.matricula, E.nome, E.email, E.admin, C.nome AS curso
+FROM Estudante E
+         INNER JOIN Curso C on C.id = E.id_curso;
+
+-- Inserção de Dados
+
+INSERT INTO Estudante
+VALUES ('000000000', 'Admin', 'admin@unb.br', '0000', 1, NULL);
+
+INSERT INTO Departamento
+VALUES (1, 'MAT', 'Departamento de Matemática'),
+       (2, 'CIC', 'Depto. Ciências da Computação'),
+       (3, 'FDD', 'Faculdade de Direito'),
+       (4, 'IFD', 'Instituto de Física');
+
+INSERT INTO Curso
+VALUES (1, 'Matemática', 1),
+       (2, 'Ciência da Computação', 2),
+       (3, 'Computação', 2),
+       (4, 'Engenharia da Computação', 2),
+       (5, 'Direito', 3),
+       (6, 'Física', 4),
+       (7, 'Física Computacional', 4);

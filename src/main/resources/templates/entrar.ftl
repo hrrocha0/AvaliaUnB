@@ -13,14 +13,13 @@
                 <#if feedback.message??>
                     <div class="alert alert-danger alert-dismissable fade show" role="alert">
                         <div class="d-flex">
-                            <h4>Erro</h4>
-                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                            ${feedback.message}
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
+                                    aria-label="Fechar"></button>
                         </div>
-                        <p>${feedback.message}</p>
                     </div>
                 </#if>
             </#if>
-
             <@form>
                 <@field "text" "matricula" "Matrícula"/>
                 <@field "password" "senha" "Senha"/>
