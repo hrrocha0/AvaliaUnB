@@ -27,7 +27,7 @@ object ProfessorController : Controller {
             }
             val perfil = PerfilDAO.read(matricula)
 
-            if (perfil == null || !perfil.admin) {
+            if (perfil == null) {
                 call.respondRedirect("/")
                 return@get
             }

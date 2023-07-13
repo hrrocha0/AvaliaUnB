@@ -2,6 +2,7 @@
 <#include "components/base.ftl">
 
 <#-- @ftlvariable name="professores" type="kotlin.collections.List<kotlin.collections.Map<String, Object>>" -->
+<#-- @ftlvariable name="perfil" type="kotlin.collections.Map<String, Object>"-->
 
 <@page>
     <div class="row justify-content-center">
@@ -22,18 +23,26 @@
                         <td>${professor.email}</td>
                         <td>
                             <div class="row">
-                                <div class="col text-center">
-                                    <a class="btn btn-primary" href="/professor/${professor.id}/editar">Editar</a>
-                                </div>
-                                <div class="col text-center">
-                                    <a class="btn btn-primary" href="/professor/${professor.id}/deletar">Deletar</a>
-                                </div>
+                                <#if perfil.admin>
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" href="/professor/${professor.id}/editar">Editar</a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" href="/professor/${professor.id}/deletar">Deletar</a>
+                                    </div>
+                                <#else>
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" href="">Avaliações</a>
+                                    </div>
+                                </#if>
                             </div>
                         </td>
                     </tr>
                 </#list>
             </table>
-            <a class="btn btn-primary" href="/professor/criar">Adicionar</a>
+            <#if perfil.admin>
+                <a class="btn btn-primary" href="/professor/criar">Adicionar</a>
+            </#if>
         </div>
     </div>
 </@page>
