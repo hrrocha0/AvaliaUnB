@@ -12,9 +12,9 @@ Essa implementação cumpre com os seguintes requisitos:
 - [X] Modelo Entidade Relacionamento do banco de dados;
 - [X] Modelo Relacional do banco de dados;
 - [X] Interface visual para interação com o usuário;
-- [ ] CRUD para as principais entidades do banco de dados;
+- [X] CRUD para as principais entidades do banco de dados;
 - [X] Camada de persistência SQL;
-- [ ] Código para a inserção de linhas em cada tabela;
+- [X] Código para a inserção de linhas em cada tabela;
 - [X] Construção de uma *View*;
 - [ ] Construção de uma *Procedure*;
 - [ ] Inserção de dados binários (BLOB);
