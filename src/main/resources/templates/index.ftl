@@ -1,6 +1,8 @@
 <#ftl encoding="UTF-8">
 <#include "components/base.ftl">
 
+<#-- @ftlvariable name="perfil" type="kotlin.collections.Map<String, Object>" -->
+
 <@page>
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 text-center my-3 my-sm-5">
@@ -20,14 +22,17 @@
                     <img class="img-fluid rounded" src="/static/placeholder.png" alt="Placeholder">
                 </div>
             </div>
-            <div class="row justify-content-center gy-3 my-3">
-                <div class="col-12 col-sm-8">
-                    <a class="btn btn-primary w-100" href="/entrar">Entrar</a>
+
+            <#if !perfil??>
+                <div class="row justify-content-center gy-3 my-3">
+                    <div class="col-12 col-sm-8">
+                        <a class="btn btn-primary w-100" href="/entrar">Entrar</a>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <a class="btn btn-secondary w-100" href="/registrar">Registrar</a>
+                    </div>
                 </div>
-                <div class="col-12 col-sm-8">
-                    <a class="btn btn-secondary w-100" href="/registrar">Registrar</a>
-                </div>
-            </div>
+            </#if>
         </div>
     </div>
 </@page>

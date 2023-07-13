@@ -50,18 +50,18 @@ CREATE TABLE Estudante
     email     VARCHAR(100) UNIQUE NOT NULL,
     senha     VARCHAR(100)        NOT NULL,
     admin     BIT                 NOT NULL,
-    id_curso  INT,
+    id_curso  INT                 NOT NULL,
     PRIMARY KEY (matricula),
     FOREIGN KEY (id_curso) REFERENCES Curso (id)
 );
 
 CREATE TABLE Avaliacao
 (
-    id_p_ou_d           INT           NOT NULL,
-    id                  INT           NOT NULL,
-    nota                DECIMAL(2, 2) NOT NULL,
+    id_p_ou_d           INT     NOT NULL,
+    id                  INT     NOT NULL,
+    nota                INT     NOT NULL,
     comentario          VARCHAR,
-    matricula_estudante CHAR(9)       NOT NULL,
+    matricula_estudante CHAR(9) NOT NULL,
     PRIMARY KEY (id_p_ou_d, id),
     FOREIGN KEY (matricula_estudante) REFERENCES Estudante (matricula)
 );

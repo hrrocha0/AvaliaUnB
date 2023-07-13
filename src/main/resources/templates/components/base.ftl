@@ -23,7 +23,7 @@
                 <ul class="navbar-nav">
                     <li><a class="nav-link" href="/">Início</a></li>
                     <li><a class="nav-link" href="">Disciplinas</a></li>
-                    <li><a class="nav-link" href="">Professores</a></li>
+                    <li><a class="nav-link" href="/professor">Professores</a></li>
                 </ul>
                 <#if perfil??>
                     <ul class="navbar-nav ms-auto">

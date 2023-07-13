@@ -30,7 +30,7 @@ object CursoDAO : ReadWriteDAO<CursoModel> {
     override fun update(model: CursoModel) = try {
         val sql = """
             UPDATE Curso
-            SET nome = '${model.nome},
+            SET nome = '${model.nome}',
                 id_departamento = ${model.idDepartamento}
             WHERE id = ${model.id}
         """.trimIndent()

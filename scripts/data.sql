@@ -1,7 +1,7 @@
 -- Inserção de Dados
 
 INSERT INTO Estudante
-VALUES ('000000000', 'Admin', 'admin@unb.br', '0000', 1, NULL);
+VALUES ('000000000', 'Admin', 'admin@unb.br', '0000', 1, 2);
 
 INSERT INTO Departamento
 VALUES (1, 'MAT', 'Departamento de Matemática'),
@@ -17,3 +17,6 @@ VALUES (1, 'Matemática', 1),
        (5, 'Direito', 3),
        (6, 'Física', 4),
        (7, 'Física Computacional', 4);
+
+INSERT INTO Professor
+VALUES (1, '012345678', 'John Doe', 'jdoe@unb.br');

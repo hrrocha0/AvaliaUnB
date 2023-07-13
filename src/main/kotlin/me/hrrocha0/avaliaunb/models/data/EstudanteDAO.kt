@@ -30,9 +30,9 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
     override fun update(model: EstudanteModel) = try {
         val sql = """
             UPDATE Estudante
-            SET nome = '${model.nome},
+            SET nome = '${model.nome}',
                 email = '${model.email}',
-                senha = '${model.senha},
+                senha = '${model.senha}',
                 admin = ${if (model.admin) 1 else 0},
                 id_curso = ${model.idCurso}
             WHERE matricula = '${model.matricula}' 
