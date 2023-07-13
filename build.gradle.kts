@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.0"
+    id("io.ktor.plugin") version "2.3.2"
     application
 }
 
@@ -36,6 +37,12 @@ dependencies {
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
+}
+
+ktor {
+    fatJar {
+        archiveFileName = "AvaliaUnB-${project_version}.jar"
+    }
 }
 
 tasks.test {
