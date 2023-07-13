@@ -1,5 +1,6 @@
 package me.hrrocha0.avaliaunb.models
 
+import me.hrrocha0.avaliaunb.models.pages.RegistrarModel
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

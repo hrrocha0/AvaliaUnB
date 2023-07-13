@@ -12,6 +12,7 @@ fun Application.configureRouting() {
         route("/entrar", EntrarController)
         route("/registrar", RegistrarController)
         route("/professor", ProfessorController)
+        route("/disciplina", DisciplinaController)
     }
 }
 

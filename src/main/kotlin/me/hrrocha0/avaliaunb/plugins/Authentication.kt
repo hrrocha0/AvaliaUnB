@@ -3,7 +3,7 @@ package me.hrrocha0.avaliaunb.plugins
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import me.hrrocha0.avaliaunb.controllers.EntrarController
-import me.hrrocha0.avaliaunb.models.EntrarModel
+import me.hrrocha0.avaliaunb.models.pages.EntrarModel
 import me.hrrocha0.avaliaunb.models.Feedback
 import me.hrrocha0.avaliaunb.models.FeedbackModel
 import me.hrrocha0.avaliaunb.models.data.EstudanteDAO

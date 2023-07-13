@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
                     <li><a class="nav-link" href="/">Início</a></li>
-                    <li><a class="nav-link" href="">Disciplinas</a></li>
+                    <li><a class="nav-link" href="/disciplina">Disciplinas</a></li>
                     <li><a class="nav-link" href="/professor">Professores</a></li>
                 </ul>
                 <#if perfil??>

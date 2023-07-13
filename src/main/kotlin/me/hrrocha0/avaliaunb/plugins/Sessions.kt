@@ -13,4 +13,11 @@ fun Application.configureSessions() {
     }
 }
 
+inline fun ApplicationCall.verifySession(challenge: () -> Unit): String {
+    val matricula = sessions.get<UserSession>()?.name
+    if (matricula == null) challenge()
+
+    return matricula!!
+}
+
 data class UserSession(val name: String, val count: Int) : Principal

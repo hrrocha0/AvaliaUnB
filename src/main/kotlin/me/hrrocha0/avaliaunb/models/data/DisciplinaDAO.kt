@@ -7,7 +7,7 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
     override fun create(model: DisciplinaModel) = try {
         val sql = """
             INSERT INTO Disciplina
-            VALUES (${model.id}, ${model.codigo}, '${model.nome}', '${model.descricao}', ${model.idDepartamento})
+            VALUES (${model.id}, '${model.codigo}', '${model.nome}', '${model.descricao}', ${model.idDepartamento})
         """.trimIndent()
 
         executeSql(sql)
@@ -30,7 +30,7 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
     override fun update(model: DisciplinaModel) = try {
         val sql = """
             UPDATE Disciplina
-            SET codigo = ${model.codigo},
+            SET codigo = '${model.codigo}',
                 nome = '${model.nome}',
                 descricao = '${model.descricao}',
                 id_departamento = ${model.idDepartamento}
@@ -66,7 +66,7 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
 
     override fun transform(resultSet: ResultSet): DisciplinaModel {
         val id = resultSet.getInt("id")
-        val codigo = resultSet.getInt("codigo")
+        val codigo = resultSet.getString("codigo")
         val nome = resultSet.getString("nome")
         val descricao = resultSet.getString("descricao")
         val idDepartamento = resultSet.getInt("id_departamento")

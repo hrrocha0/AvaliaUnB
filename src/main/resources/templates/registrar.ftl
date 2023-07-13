@@ -27,13 +27,11 @@
                 <@field "email" "email" "Endereço de e-mail"/>
                 <@field "password" "senha" "Senha"/>
                 <@field "password" "confirmar" "Confirmar Senha"/>
-
-                <label for="curso">Curso</label>
-                <select class="form-select my-3" id="curso" name="curso">
+                <@select "curso" "Curso">
                     <#list cursos as curso>
                         <option value="${curso.id}">${curso.nome}</option>
                     </#list>
-                </select>
+                </@select>
 
                 <@submit>Registrar</@submit>
 

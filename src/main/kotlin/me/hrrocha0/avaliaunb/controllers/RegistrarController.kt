@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import me.hrrocha0.avaliaunb.models.EstudanteModel
 import me.hrrocha0.avaliaunb.models.FeedbackModel
-import me.hrrocha0.avaliaunb.models.RegistrarModel
+import me.hrrocha0.avaliaunb.models.pages.RegistrarModel
 import me.hrrocha0.avaliaunb.models.Feedback
 import me.hrrocha0.avaliaunb.models.data.CursoDAO
 import me.hrrocha0.avaliaunb.models.data.EstudanteDAO

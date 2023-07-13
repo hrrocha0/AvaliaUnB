@@ -17,6 +17,3 @@ VALUES (1, 'Matemática', 1),
        (5, 'Direito', 3),
        (6, 'Física', 4),
        (7, 'Física Computacional', 4);
-
-INSERT INTO Professor
-VALUES (1, '012345678', 'John Doe', 'jdoe@unb.br');

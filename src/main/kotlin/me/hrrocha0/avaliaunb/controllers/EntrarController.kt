@@ -5,7 +5,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
-import me.hrrocha0.avaliaunb.models.EntrarModel
+import me.hrrocha0.avaliaunb.models.pages.EntrarModel
 import me.hrrocha0.avaliaunb.models.Feedback
 import me.hrrocha0.avaliaunb.models.FeedbackModel
 import me.hrrocha0.avaliaunb.plugins.UserSession

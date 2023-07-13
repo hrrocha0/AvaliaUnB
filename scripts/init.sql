@@ -26,7 +26,7 @@ CREATE TABLE Professor
 CREATE TABLE Disciplina
 (
     id              INT          NOT NULL,
-    codigo          INT UNIQUE   NOT NULL,
+    codigo          CHAR(4)      NOT NULL,
     nome            VARCHAR(100) NOT NULL,
     descricao       VARCHAR,
     id_departamento INT          NOT NULL,
