@@ -10,12 +10,16 @@ O objetivo é criar um sistema em que os estudantes possam avaliar professores e
 Essa implementação cumpre com os seguintes requisitos:
 
 - [X] Modelo Entidade Relacionamento do banco de dados;
-- [ ] Modelo Relacional do banco de dados;
-- [ ] Interface visual para interação com o usuário;
+- [X] Modelo Relacional do banco de dados;
+- [X] Interface visual para interação com o usuário;
 - [ ] CRUD para as principais entidades do banco de dados;
-- [ ] Camada de persistência SQL;
+- [X] Camada de persistência SQL;
 - [ ] Código para a inserção de linhas em cada tabela;
-- [ ] Construção de uma *View*;
+- [X] Construção de uma *View*;
 - [ ] Construção de uma *Procedure*;
 - [ ] Inserção de dados binários (BLOB);
-- [ ] Vídeo apresentando o programa desenvolvido.
+- [X] Vídeo apresentando o programa desenvolvido.
+
+## Instruções de Execução
+
+A maneira mais simples de executar o programa é usando a IDE *Intellij Idea* (2023.1). A *Community Edition* deve ser suficiente, mas não há garantia, pois esse projeto foi desenvolvido na edição *Ultimate*. Um *Java Development Kit* (JDK) deve estar instalado e configurado na IDE (Acesse as configurações de projeto usando *Ctrl+Alt+Shift+S*). O JDK utilizado neste programa foi o *Eclipse Adoptium jdk-17.0.1.12-hotspot*. Depois, basta executar o arquivo *AvaliaUnB-1.0.0.jar*, encontrado na pasta *jar*. Alternativamente, utilizando o terminal providenciado pela IDE, execute o comando *gradlew run*, ou execute diretamente o arquivo *Main.kt*.
