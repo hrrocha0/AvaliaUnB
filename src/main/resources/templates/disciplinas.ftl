@@ -11,27 +11,25 @@
 
             <table class="table table-striped">
                 <tr>
-                    <td>Departamento</td>
                     <td>Código</td>
+                    <td>Nome</td>
+                    <td>Departamento</td>
                     <td>Ações</td>
                 </tr>
                 <#list disciplinas as disciplina>
                     <tr>
-                        <td>${disciplina.id_departamento}</td>
                         <td>${disciplina.codigo}</td>
+                        <td>${disciplina.nome}</td>
+                        <td>${disciplina.codigo_depto}</td>
                         <td>
                             <div class="row">
-                                <#if perfil.admin>
+                                <#if perfil.administrador>
                                     <div class="col text-center">
-                                        <a class="btn btn-primary" href="/disciplina/${disciplina.id}/editar">Editar</a>
+                                        <a class="btn btn-primary" href="/disciplina/${disciplina.codigo_p_ou_d}/editar">Editar</a>
                                     </div>
                                     <div class="col text-center">
                                         <a class="btn btn-primary"
-                                           href="/disciplina/${disciplina.id}/deletar">Deletar</a>
-                                    </div>
-                                <#else>
-                                    <div class="col text-center">
-                                        <a class="btn btn-primary" href="">Avaliações</a>
+                                           href="/disciplina/${disciplina.codigo_p_ou_d}/deletar">Deletar</a>
                                     </div>
                                 </#if>
                             </div>
@@ -39,7 +37,7 @@
                     </tr>
                 </#list>
             </table>
-            <#if perfil.admin>
+            <#if perfil.administrador>
                 <a class="btn btn-primary" href="/disciplina/criar">Adicionar</a>
             </#if>
         </div>

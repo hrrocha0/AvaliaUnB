@@ -8,14 +8,13 @@
 <@page>
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 my-3 my-sm-5">
-            <h1 class="mb-3">Editar disciplina: ${disciplina.id}</h1>
+            <h1 class="mb-3">Editar disciplina: ${disciplina.nome}</h1>
             <@form>
-                <@field "number" "codigo" "Código"/>
+                <@field "text" "codigo" "Código"/>
                 <@field "text" "nome" "Nome"/>
-                <@textarea "descricao" "Descrição" 4/>
-                <@select "id_departamento" "Departamento">
+                <@select "codigo_depto" "Departamento">
                     <#list departamentos as departamento>
-                        <option value="${departamento.id}">(${departamento.sigla}) ${departamento.nome}</option>
+                        <option value="${departamento.codigo}">${departamento.nome}</option>
                     </#list>
                 </@select>
 

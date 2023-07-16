@@ -27,9 +27,9 @@
                 <@field "email" "email" "Endereço de e-mail"/>
                 <@field "password" "senha" "Senha"/>
                 <@field "password" "confirmar" "Confirmar Senha"/>
-                <@select "curso" "Curso">
+                <@select "codigo_curso" "Curso">
                     <#list cursos as curso>
-                        <option value="${curso.id}">${curso.nome}</option>
+                        <option value="${curso.codigo}">${curso.nome}</option>
                     </#list>
                 </@select>
 

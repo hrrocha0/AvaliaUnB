@@ -11,28 +11,22 @@
 
             <table class="table table-striped">
                 <tr>
-                    <td>Matricula</td>
                     <td>Nome</td>
-                    <td>Endereço e-mail</td>
+                    <td>Departamento</td>
                     <td>Ações</td>
                 </tr>
                 <#list professores as professor>
                     <tr>
-                        <td>${professor.matricula}</td>
                         <td>${professor.nome}</td>
-                        <td>${professor.email}</td>
+                        <td>${professor.codigo_depto}</td>
                         <td>
                             <div class="row">
-                                <#if perfil.admin>
+                                <#if perfil.administrador>
                                     <div class="col text-center">
-                                        <a class="btn btn-primary" href="/professor/${professor.id}/editar">Editar</a>
+                                        <a class="btn btn-primary" href="/professor/${professor.codigo_p_ou_d}/editar">Editar</a>
                                     </div>
                                     <div class="col text-center">
-                                        <a class="btn btn-primary" href="/professor/${professor.id}/deletar">Deletar</a>
-                                    </div>
-                                <#else>
-                                    <div class="col text-center">
-                                        <a class="btn btn-primary" href="">Avaliações</a>
+                                        <a class="btn btn-primary" href="/professor/${professor.codigo_p_ou_d}/deletar">Deletar</a>
                                     </div>
                                 </#if>
                             </div>
@@ -40,7 +34,7 @@
                     </tr>
                 </#list>
             </table>
-            <#if perfil.admin>
+            <#if perfil.administrador>
                 <a class="btn btn-primary" href="/professor/criar">Adicionar</a>
             </#if>
         </div>

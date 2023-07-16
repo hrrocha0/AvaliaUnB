@@ -7,7 +7,7 @@
 <@page>
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 my-3 my-sm-5">
-            <h1 class="mb-3">Deletar disciplina: ${disciplina.id}</h1>
+            <h1 class="mb-3">Deletar disciplina: ${disciplina.nome}</h1>
 
             <div class="card text-center">
                 <div class="card-body">

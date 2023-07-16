@@ -41,11 +41,11 @@ CREATE TABLE Departamento
 
 CREATE TABLE Disciplina
 (
-    codigo        CHAR(7)    NOT NULL,
-    nome          VARCHAR    NOT NULL,
-    codigo_depto  INT        NOT NULL,
-    codigo_p_ou_d INT UNIQUE NOT NULL,
-    PRIMARY KEY (codigo),
+    codigo_p_ou_d INT            NOT NULL,
+    codigo        VARCHAR UNIQUE NOT NULL,
+    nome          VARCHAR        NOT NULL,
+    codigo_depto  INT            NOT NULL,
+    PRIMARY KEY (codigo_p_ou_d),
     FOREIGN KEY (codigo_depto) REFERENCES Departamento (codigo),
     FOREIGN KEY (codigo_p_ou_d) REFERENCES ProfessorOuDisciplina (codigo)
 );
@@ -64,10 +64,10 @@ CREATE TABLE Estudante
 
 CREATE TABLE Professor
 (
-    nome          VARCHAR    NOT NULL,
-    codigo_depto  INT        NOT NULL,
-    codigo_p_ou_d INT UNIQUE NOT NULL,
-    PRIMARY KEY (nome),
+    codigo_p_ou_d INT            NOT NULL,
+    nome          VARCHAR UNIQUE NOT NULL,
+    codigo_depto  INT            NOT NULL,
+    PRIMARY KEY (codigo_p_ou_d),
     FOREIGN KEY (codigo_depto) REFERENCES Departamento (codigo),
     FOREIGN KEY (codigo_p_ou_d) REFERENCES ProfessorOuDisciplina (codigo)
 );
@@ -80,7 +80,7 @@ CREATE TABLE ProfessorOuDisciplina
 
 CREATE TABLE Turma
 (
-    codigo_disciplina CHAR(7) NOT NULL,
+    codigo_disciplina VARCHAR NOT NULL,
     codigo            INT     NOT NULL,
     periodo           CHAR(6) NOT NULL,
     nome_professor    VARCHAR NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE Turma
     total_vagas       INT     NOT NULL,
     local             VARCHAR NOT NULL,
     codigo_depto      INT     NOT NULL,
-    PRIMARY KEY (codigo_disciplina, codigo),
+    PRIMARY KEY (codigo_disciplina, codigo, periodo),
     FOREIGN KEY (codigo_disciplina) REFERENCES Disciplina (codigo),
     FOREIGN KEY (nome_professor) REFERENCES Professor (nome),
     FOREIGN KEY (codigo_depto) REFERENCES Departamento (codigo)
@@ -99,3 +99,10 @@ CREATE VIEW Perfil AS
 SELECT E.matricula, E.nome, E.email, E.administrador, C.nome AS nome_curso
 FROM Estudante E
          INNER JOIN Curso C on C.codigo = E.codigo_curso;
+
+INSERT INTO Curso
+VALUES (1, 'Indefinido', 0),
+       (2, 'Ciência da Computação', 508);
+
+INSERT INTO Estudante
+VALUES ('000000000', 'Admin', 'admin@unb.br', '0000', 1, 1);

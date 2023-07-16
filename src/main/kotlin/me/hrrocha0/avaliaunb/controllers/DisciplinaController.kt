@@ -4,11 +4,12 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.util.*
 import me.hrrocha0.avaliaunb.models.DisciplinaModel
+import me.hrrocha0.avaliaunb.models.ProfessorOuDisciplinaModel
 import me.hrrocha0.avaliaunb.models.data.DepartamentoDAO
 import me.hrrocha0.avaliaunb.models.data.DisciplinaDAO
 import me.hrrocha0.avaliaunb.models.data.PerfilDAO
+import me.hrrocha0.avaliaunb.models.data.ProfessorOuDisciplinaDAO
 import me.hrrocha0.avaliaunb.models.pages.CriarDisciplinaModel
 import me.hrrocha0.avaliaunb.models.pages.DeletarDisciplinaModel
 import me.hrrocha0.avaliaunb.models.pages.DisciplinasModel
@@ -26,9 +27,7 @@ object DisciplinaController : Controller {
                 call.respondRedirect("/entrar")
                 return@get
             }
-            val perfil = PerfilDAO.read(matricula)
-
-            if (perfil == null) {
+            val perfil = PerfilDAO.read(matricula) ?: run {
                 call.respondRedirect("/")
                 return@get
             }
@@ -36,22 +35,19 @@ object DisciplinaController : Controller {
 
             call.respondView(DisciplinasView, DisciplinasModel(disciplinas, perfil))
         }
-
-        route("/{id}/editar") {
+        route("/{codigo}/editar") {
             get {
-                val matricula = call.verifySession {
-                    call.respondRedirect("/")
-                    return@get
-                }
-                val perfil = PerfilDAO.read(matricula)
-                val id = call.parameters["id"].toString()
-                val disciplina = DisciplinaDAO.read(id)
+                val codigoPouD = call.parameters["codigo"].toString()
 
-                if (perfil == null || !perfil.admin) {
+                val matricula = call.verifySession {
+                    call.respondRedirect("/entrar")
+                    return@get
+                }
+                val perfil = PerfilDAO.read(matricula)?.takeIf { it.administrador } ?: run {
                     call.respondRedirect("/")
                     return@get
                 }
-                if (disciplina == null) {
+                val disciplina = DisciplinaDAO.read(codigoPouD) ?: run {
                     call.respondRedirect("/disciplina")
                     return@get
                 }
@@ -60,55 +56,49 @@ object DisciplinaController : Controller {
                 call.respondView(EditarDisciplinaView, EditarDisciplinaModel(disciplina, perfil, departamentos))
             }
             post {
+                val codigoPouD = call.parameters["codigo"].toString()
                 val formParameters = call.receiveParameters()
-                val codigo = formParameters.getOrFail("codigo")
-                val nome = formParameters.getOrFail("nome")
-                val descricao = formParameters.getOrFail("descricao")
-                val idDepartamento = formParameters.getOrFail("id_departamento").toInt()
+                val codigo = formParameters["codigo"]
+                val nome = formParameters["nome"]
+                val codigoDepto = formParameters["codigo_depto"]?.toIntOrNull()
 
-                val id = call.parameters["id"].toString()
-                val disciplina = DisciplinaDAO.read(id)
-
-                if (disciplina == null) {
+                if (codigo.isNullOrBlank() || nome.isNullOrBlank() || codigoDepto == null) {
+                    call.respondRedirect("/disciplina/$codigoPouD/editar")
+                    return@post
+                }
+                val disciplina = DisciplinaDAO.read(codigoPouD) ?: run {
                     call.respondRedirect("/disciplina")
                     return@post
                 }
                 DisciplinaDAO.update(
-                    disciplina.copy(
-                        codigo = codigo,
-                        nome = nome,
-                        descricao = descricao,
-                        codigoDepto = idDepartamento
-                    )
+                    disciplina.copy(codigo = codigo, nome = nome, codigoDepto = codigoDepto),
+                    codigoPouD
                 )
                 call.respondRedirect("/disciplina")
             }
         }
-        route("/{id}/deletar") {
+        route("/{codigo}/deletar") {
             get {
+                val codigoPouD = call.parameters["codigo"].toString()
+
                 val matricula = call.verifySession {
                     call.respondRedirect("/entrar")
                     return@get
                 }
-                val id = call.parameters["id"].toString()
-
-                val perfil = PerfilDAO.read(matricula)
-                val disciplina = DisciplinaDAO.read(id)
-
-                if (perfil == null || !perfil.admin) {
+                val perfil = PerfilDAO.read(matricula)?.takeIf { it.administrador } ?: run {
                     call.respondRedirect("/")
                     return@get
                 }
-                if (disciplina == null) {
+                val disciplina = DisciplinaDAO.read(codigoPouD) ?: run {
                     call.respondRedirect("/disciplina")
                     return@get
                 }
                 call.respondView(DeletarDisciplinaView, DeletarDisciplinaModel(disciplina, perfil))
             }
             post {
-                val id = call.parameters["id"].toString()
+                val codigoPouD = call.parameters["codigo"].toString()
 
-                DisciplinaDAO.delete(id)
+                DisciplinaDAO.delete(codigoPouD)
                 call.respondRedirect("/disciplina")
             }
         }
@@ -118,9 +108,7 @@ object DisciplinaController : Controller {
                     call.respondRedirect("/entrar")
                     return@get
                 }
-                val perfil = PerfilDAO.read(matricula)
-
-                if (perfil == null || !perfil.admin) {
+                val perfil = PerfilDAO.read(matricula)?.takeIf { it.administrador } ?: run {
                     call.respondRedirect("/")
                     return@get
                 }
@@ -130,18 +118,17 @@ object DisciplinaController : Controller {
             }
             post {
                 val formParameters = call.receiveParameters()
-                val codigo = formParameters.getOrFail("codigo")
-                val nome = formParameters.getOrFail("nome")
-                val descricao = formParameters.getOrFail("descricao")
-                val idDepartamento = formParameters.getOrFail("id_departamento").toInt()
+                val codigo = formParameters["codigo"]
+                val nome = formParameters["nome"]
+                val codigoDepto = formParameters["codigo_depto"]?.toIntOrNull()
+                val codigoPouD = ProfessorOuDisciplinaDAO.index().size + 1
 
-                if (DisciplinaDAO.index { it.codigo == codigo }.isNotEmpty()) {
-                    call.respondRedirect("/disciplina")
+                if (codigo.isNullOrBlank() || nome.isNullOrBlank() || codigoDepto == null) {
+                    call.respondRedirect("/disciplina/criar")
                     return@post
                 }
-                val id = DisciplinaDAO.index().size + 1
-
-                DisciplinaDAO.create(DisciplinaModel(id, codigo, nome, descricao, idDepartamento))
+                ProfessorOuDisciplinaDAO.create(ProfessorOuDisciplinaModel(codigoPouD))
+                DisciplinaDAO.create(DisciplinaModel(codigoPouD, codigo, nome, codigoDepto))
                 call.respondRedirect("/disciplina")
             }
         }

@@ -19,7 +19,7 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
     override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Turma
-            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]} AND periodo= '${keys[2]}'
         """.trimIndent()
 
         executeSql(sql).first()
@@ -39,7 +39,7 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
                 total_vagas = ${model.totalVagas},
                 local = '${model.local}',
                 codigo_depto = ${model.codigoDepto}
-            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]} AND periodo = '${keys[2]}'
         """.trimIndent()
         val turma = read(*keys)
 
@@ -52,7 +52,7 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
     override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Turma
-            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]} AND periodo = '${keys[3]}'
         """.trimIndent()
         val turma = read(*keys)
 

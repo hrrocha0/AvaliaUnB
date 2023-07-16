@@ -7,7 +7,7 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     override fun create(model: ProfessorModel) = try {
         val sql = """
             INSERT INTO Professor
-            VALUES ('${model.nome}', ${model.codigoDepto}, ${model.codigoPouD})
+            VALUES (${model.codigoPouD}, '${model.nome}', ${model.codigoDepto})
         """.trimIndent()
 
         executeSql(sql)
@@ -19,7 +19,7 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Professor
-            WHERE nome = '${keys[0]}'
+            WHERE codigo_p_ou_d = ${keys[0]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -30,10 +30,10 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     override fun update(model: ProfessorModel, vararg keys: String) = try {
         val sql = """
             UPDATE Professor
-            SET nome = '${model.nome}',
-                codigo_depto = ${model.codigoDepto},
-                codigo_p_ou_d = ${model.codigoPouD}
-            WHERE nome = '${keys[0]}' 
+            SET codigo_p_ou_d = ${model.codigoPouD},
+                nome = '${model.nome}',
+                codigo_depto = ${model.codigoDepto}
+            WHERE codigo_p_ou_d = ${keys[0]} 
         """.trimIndent()
         val professor = read(*keys)
 
@@ -46,7 +46,7 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Professor
-            WHERE nome = '${keys[0]}'
+            WHERE codigo_p_ou_d = ${keys[0]}
         """.trimIndent()
         val professor = read(*keys)
 
@@ -64,10 +64,10 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     }
 
     override fun transform(resultSet: ResultSet): ProfessorModel {
+        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
         val nome = resultSet.getString("nome")
         val codigoDepto = resultSet.getInt("codigo_depto")
-        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
 
-        return ProfessorModel(nome, codigoDepto, codigoPouD)
+        return ProfessorModel(codigoPouD, nome, codigoDepto)
     }
 }

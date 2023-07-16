@@ -71,7 +71,7 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
         val nome = resultSet.getString("nome")
         val email = resultSet.getString("email")
         val senha = resultSet.getString("senha")
-        val administrador = resultSet.getBoolean("admin")
+        val administrador = resultSet.getBoolean("administrador")
         val codigoCurso = resultSet.getInt("codigo_curso")
 
         return EstudanteModel(matricula, nome, email, senha, administrador, codigoCurso)

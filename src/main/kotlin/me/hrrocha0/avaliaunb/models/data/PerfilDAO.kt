@@ -26,7 +26,7 @@ object PerfilDAO : ReadOnlyDAO<PerfilModel> {
         val matricula = resultSet.getString("matricula")
         val nome = resultSet.getString("nome")
         val email = resultSet.getString("email")
-        val administrador = resultSet.getBoolean("admin")
+        val administrador = resultSet.getBoolean("administrador")
         val nomeCurso = resultSet.getString("nome_curso")
 
         return PerfilModel(matricula, nome, email, administrador, nomeCurso)

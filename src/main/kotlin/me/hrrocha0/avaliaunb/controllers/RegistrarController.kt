@@ -29,7 +29,7 @@ object RegistrarController : Controller {
             val email = formParameters["email"]
             val senha = formParameters["senha"]
             val confirmar = formParameters["confirmar"]
-            val idCurso = formParameters["curso"]?.toIntOrNull()
+            val codigoCurso = formParameters["codigo_curso"]?.toIntOrNull()
             val cursoModels = CursoDAO.index()
 
             if (matricula.isNullOrBlank()
@@ -37,7 +37,7 @@ object RegistrarController : Controller {
                 || email.isNullOrBlank()
                 || senha.isNullOrBlank()
                 || confirmar.isNullOrBlank()
-                || idCurso == null
+                || codigoCurso == null
             ) {
                 call.respondView(
                     RegistrarView, RegistrarModel(
@@ -72,7 +72,7 @@ object RegistrarController : Controller {
                     email = email,
                     senha = senha,
                     administrador = false,
-                    codigoCurso = idCurso,
+                    codigoCurso = codigoCurso,
                 )
             )
             call.respondRedirect("/entrar")
