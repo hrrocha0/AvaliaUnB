@@ -22,4 +22,10 @@ Essa implementação cumpre com os seguintes requisitos:
 
 ## Instruções de Execução
 
-A maneira mais simples de executar o programa é usando a IDE *Intellij Idea* (2023.1). A *Community Edition* deve ser suficiente, mas não há garantia, pois esse projeto foi desenvolvido na edição *Ultimate*. Um *Java Development Kit* (JDK) deve estar instalado e configurado na IDE (Acesse as configurações de projeto usando *Ctrl+Alt+Shift+S*). O JDK utilizado neste programa foi o *Eclipse Adoptium jdk-17.0.1.12-hotspot*. Depois, basta executar o arquivo *AvaliaUnB-1.0.0.jar*, encontrado na pasta *jar*. Alternativamente, utilizando o terminal providenciado pela IDE, execute o comando *gradlew run*, ou execute diretamente o arquivo *Main.kt*.
+Para executar a aplicação, uma versão do Java compatível deve estar instalada (o JDK utilizado neste programa foi o *Eclipse Adoptium jdk-17.0.1.12-hotspot*). Então, basta executar o arquivo *AvaliaUnB-1.0.0.jar*, que pode ser encontrado no diretório *jar* do projeto. O banco de dados já deve estar inicializado, porém as tabelas podem ser criadas por meio do arquivo *init.sql*, e os dados principais pelo script *data.main.kts*. O programa também pode ser executado pelo Gradle, por meio do comando
+
+```
+gradlew run
+```
+
+A IDE *Intellij Idea (2023.1)* providencia métodos para facilitar a execução do programa em Kotlin, como um compilador integrado para a versão mais recente da linguagem (1.9.0). Ao usar essa IDE, também é possível executar o programa rodando diretamente o arquivo *Main.kt*.
