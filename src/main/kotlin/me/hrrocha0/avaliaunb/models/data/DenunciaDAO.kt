@@ -7,7 +7,7 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
     override fun create(model: DenunciaModel) = try {
         val sql = """
             INSERT INTO Denuncia
-            VALUES (${model.idPouD}, ${model.idAvaliacao}, ${model.id}, '${model.comentario}', '${model.matriculaEstudante}', '${model.matriculaAvaliador}')
+            VALUES (${model.codigoPouD}, ${model.codigoAvaliacao}, ${model.codigo}, '${model.comentario}', '${model.matriculaEstudante}', '${model.matriculaAdministrador}')
         """.trimIndent()
 
         executeSql(sql)
@@ -33,10 +33,10 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
             UPDATE Denuncia
             SET comentario = '${model.comentario}',
                 matricula_estudante = '${model.matriculaEstudante}',
-                matricula_avaliador = '${model.matriculaAvaliador}'
-            WHERE id_p_ou_d = ${model.idPouD} AND id_avaliacao = ${model.idAvaliacao} AND id = ${model.id} 
+                matricula_avaliador = '${model.matriculaAdministrador}'
+            WHERE id_p_ou_d = ${model.codigoPouD} AND id_avaliacao = ${model.codigoAvaliacao} AND id = ${model.codigo} 
         """.trimIndent()
-        val denuncia = read("${model.idPouD},${model.idAvaliacao},${model.id}")
+        val denuncia = read("${model.codigoPouD},${model.codigoAvaliacao},${model.codigo}")
 
         executeSql(sql)
         denuncia

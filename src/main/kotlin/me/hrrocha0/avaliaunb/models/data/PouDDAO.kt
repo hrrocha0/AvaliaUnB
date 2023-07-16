@@ -1,13 +1,13 @@
 package me.hrrocha0.avaliaunb.models.data
 
-import me.hrrocha0.avaliaunb.models.PouDModel
+import me.hrrocha0.avaliaunb.models.ProfessorOuDisciplinaModel
 import java.sql.ResultSet
 
-object PouDDAO : ReadWriteDAO<PouDModel> {
-    override fun create(model: PouDModel) = try {
+object PouDDAO : ReadWriteDAO<ProfessorOuDisciplinaModel> {
+    override fun create(model: ProfessorOuDisciplinaModel) = try {
         val sql = """
             INSERT INTO PouD
-            VALUES (${model.id})
+            VALUES (${model.codigo})
         """.trimIndent()
 
         executeSql(sql)
@@ -27,8 +27,8 @@ object PouDDAO : ReadWriteDAO<PouDModel> {
         null
     }
 
-    override fun update(model: PouDModel) = try {
-        val pouD = read(model.id.toString())
+    override fun update(model: ProfessorOuDisciplinaModel) = try {
+        val pouD = read(model.codigo.toString())
 
         // Update does nothing to PouD
         pouD
@@ -49,15 +49,15 @@ object PouDDAO : ReadWriteDAO<PouDModel> {
         null
     }
 
-    override fun index(predicate: (PouDModel) -> Boolean) = try {
+    override fun index(predicate: (ProfessorOuDisciplinaModel) -> Boolean) = try {
         val sql = "SELECT * FROM PouD"
         executeSql(sql).filter(predicate)
     } catch (e: Exception) {
         listOf()
     }
 
-    override fun transform(resultSet: ResultSet): PouDModel {
+    override fun transform(resultSet: ResultSet): ProfessorOuDisciplinaModel {
         val id = resultSet.getInt("id")
-        return PouDModel(id)
+        return ProfessorOuDisciplinaModel(id)
     }
 }

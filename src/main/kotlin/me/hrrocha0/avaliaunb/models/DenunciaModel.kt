@@ -1,19 +1,19 @@
 package me.hrrocha0.avaliaunb.models
 
 data class DenunciaModel(
-    val idPouD: Int,
-    val idAvaliacao: Int,
-    val id: Int,
+    val codigoPouD: Int,
+    val codigoAvaliacao: Int,
+    val codigo: Int,
     val comentario: String,
     val matriculaEstudante: String,
-    val matriculaAvaliador: String,
+    val matriculaAdministrador: String,
 ) : Model {
     override fun toMap() = mapOf(
-        "id_p_ou_d" to idPouD,
-        "id_avaliacao" to idAvaliacao,
-        "id" to id,
+        "codigo_p_ou_d" to codigoPouD,
+        "codigo_avaliacao" to codigoAvaliacao,
+        "codigo" to codigo,
         "comentario" to comentario,
         "matricula_estudante" to matriculaEstudante,
-        "matricula_avaliador" to matriculaAvaliador,
+        "matricula_administrador" to matriculaAdministrador,
     )
 }

@@ -78,7 +78,7 @@ object DisciplinaController : Controller {
                         codigo = codigo,
                         nome = nome,
                         descricao = descricao,
-                        idDepartamento = idDepartamento
+                        codigoDepto = idDepartamento
                     )
                 )
                 call.respondRedirect("/disciplina")

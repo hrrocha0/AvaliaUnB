@@ -5,15 +5,15 @@ data class EstudanteModel(
     val nome: String,
     val email: String,
     val senha: String,
-    val admin: Boolean,
-    val idCurso: Int,
+    val administrador: Boolean,
+    val codigoCurso: Int,
 ) : Model {
     override fun toMap() = mapOf(
         "matricula" to matricula,
         "nome" to nome,
         "email" to email,
         "senha" to senha,
-        "admin" to admin,
-        "id_curso" to idCurso
+        "admin" to administrador,
+        "codigo_curso" to codigoCurso
     )
 }

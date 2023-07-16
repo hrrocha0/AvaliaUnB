@@ -71,8 +71,8 @@ object RegistrarController : Controller {
                     nome = nome,
                     email = email,
                     senha = senha,
-                    admin = false,
-                    idCurso = idCurso,
+                    administrador = false,
+                    codigoCurso = idCurso,
                 )
             )
             call.respondRedirect("/entrar")

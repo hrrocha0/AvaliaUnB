@@ -7,7 +7,7 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
     override fun create(model: EstudanteModel) = try {
         val sql = """
             INSERT INTO Estudante
-            VALUES ('${model.matricula}', '${model.nome}', '${model.email}', '${model.senha}', ${if (model.admin) 1 else 0}, ${model.idCurso})
+            VALUES ('${model.matricula}', '${model.nome}', '${model.email}', '${model.senha}', ${if (model.administrador) 1 else 0}, ${model.codigoCurso})
         """.trimIndent()
 
         executeSql(sql)
@@ -33,8 +33,8 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
             SET nome = '${model.nome}',
                 email = '${model.email}',
                 senha = '${model.senha}',
-                admin = ${if (model.admin) 1 else 0},
-                id_curso = ${model.idCurso}
+                admin = ${if (model.administrador) 1 else 0},
+                id_curso = ${model.codigoCurso}
             WHERE matricula = '${model.matricula}' 
         """.trimIndent()
         val estudante = read(model.matricula)

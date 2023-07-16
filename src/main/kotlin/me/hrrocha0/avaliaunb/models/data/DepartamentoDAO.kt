@@ -7,7 +7,7 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
     override fun create(model: DepartamentoModel) = try {
         val sql = """
             INSERT INTO Departamento
-            VALUES (${model.id}, '${model.sigla}', '${model.nome}')
+            VALUES (${model.codigo}, '${model.sigla}', '${model.nome}')
         """.trimIndent()
 
         executeSql(sql)
@@ -32,9 +32,9 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
             UPDATE Departamento
             SET sigla = '${model.sigla}',
                 nome = '${model.nome}'
-            WHERE id = ${model.id} 
+            WHERE id = ${model.codigo} 
         """.trimIndent()
-        val departamento = read(model.id.toString())
+        val departamento = read(model.codigo.toString())
 
         executeSql(sql)
         departamento

@@ -1,9 +1,8 @@
 package me.hrrocha0.avaliaunb.models
 
 data class DepartamentoModel(
-    val id: Int,
-    val sigla: String,
+    val codigo: Int,
     val nome: String,
 ) : Model {
-    override fun toMap() = mapOf("id" to id, "sigla" to sigla, "nome" to nome)
+    override fun toMap() = mapOf("codigo" to codigo, "nome" to nome)
 }

@@ -1,6 +1,5 @@
 package me.hrrocha0.avaliaunb.models.data
 
-import me.hrrocha0.avaliaunb.models.ProfessorDepartamentoModel
 import java.sql.ResultSet
 
 object ProfessorDepartamentoDAO : ReadWriteDAO<ProfessorDepartamentoModel> {
