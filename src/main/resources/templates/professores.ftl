@@ -9,6 +9,9 @@
         <div class="col-12 col-sm-8 my-3 my-sm-5">
             <h1 class="mb-3">Professores</h1>
 
+            <#if perfil.administrador>
+                <a class="btn btn-primary" href="/professor/criar">Adicionar</a>
+            </#if>
             <table class="table table-striped">
                 <tr>
                     <td>Nome</td>
@@ -34,9 +37,6 @@
                     </tr>
                 </#list>
             </table>
-            <#if perfil.administrador>
-                <a class="btn btn-primary" href="/professor/criar">Adicionar</a>
-            </#if>
         </div>
     </div>
 </@page>
