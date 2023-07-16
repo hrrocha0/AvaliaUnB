@@ -7,7 +7,7 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
     override fun create(model: TurmaModel) = try {
         val sql = """
             INSERT INTO Turma
-            VALUES (${model.idProfessor}, ${model.idDisciplina}, ${model.id}, '${model.horario}')
+            VALUES ('${model.codigoDisciplina}', ${model.codigo}, '${model.periodo}', '${model.nomeProfessor}', '${model.horario}', ${model.vagasOcupadas}, ${model.totalVagas}, '${model.local}', ${model.codigoDepto})
         """.trimIndent()
 
         executeSql(sql)
@@ -16,12 +16,10 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
         null
     }
 
-    override fun read(key: String) = try {
-        val (idProfessor, idDisciplina, id) = key.split(",")
-
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Turma
-            WHERE id_professor = $idProfessor AND id_disciplina = $idDisciplina AND id = $id
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -29,13 +27,21 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
         null
     }
 
-    override fun update(model: TurmaModel) = try {
+    override fun update(model: TurmaModel, vararg keys: String) = try {
         val sql = """
             UPDATE Turma
-            SET horario = '${model.horario}'
-            WHERE id_professor = ${model.idProfessor} AND id_disciplina = ${model.idDisciplina} AND id = ${model.id} 
+            SET codigo_disciplina = '${model.codigoDisciplina}',
+                codigo = ${model.codigo},
+                periodo = '${model.periodo}',
+                nome_professor = '${model.nomeProfessor}',
+                horario = '${model.horario}',
+                vagas_ocupadas = ${model.vagasOcupadas},
+                total_vagas = ${model.totalVagas},
+                local = '${model.local}',
+                codigo_depto = ${model.codigoDepto}
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
         """.trimIndent()
-        val turma = read("${model.idProfessor},${model.idDisciplina},${model.id}")
+        val turma = read(*keys)
 
         executeSql(sql)
         turma
@@ -43,13 +49,12 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
         null
     }
 
-    override fun delete(key: String) = try {
-        val (idProfessor, idDisciplina, id) = key.split(",")
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Turma
-            WHERE id_professor = $idProfessor AND id_disciplina = $idDisciplina AND id = $id
+            WHERE codigo_disciplina = '${keys[0]}' AND codigo = ${keys[1]}
         """.trimIndent()
-        val turma = read(key)
+        val turma = read(*keys)
 
         executeSql(sql)
         turma
@@ -65,11 +70,26 @@ object TurmaDAO : ReadWriteDAO<TurmaModel> {
     }
 
     override fun transform(resultSet: ResultSet): TurmaModel {
-        val idProfessor = resultSet.getInt("id_professor")
-        val idDisciplina = resultSet.getInt("id_disciplina")
-        val id = resultSet.getInt("id")
+        val codigoDisciplina = resultSet.getString("codigo_disciplina")
+        val codigo = resultSet.getInt("codigo")
+        val periodo = resultSet.getString("periodo")
+        val nomeProfessor = resultSet.getString("nome_professor")
         val horario = resultSet.getString("horario")
+        val vagasOcupadas = resultSet.getInt("vagas_ocupadas")
+        val totalVagas = resultSet.getInt("total_vagas")
+        val local = resultSet.getString("local")
+        val codigoDepto = resultSet.getInt("codigo_depto")
 
-        return TurmaModel(idProfessor, idDisciplina, id, horario)
+        return TurmaModel(
+            codigoDisciplina,
+            codigo,
+            periodo,
+            nomeProfessor,
+            horario,
+            vagasOcupadas,
+            totalVagas,
+            local,
+            codigoDepto
+        )
     }
 }

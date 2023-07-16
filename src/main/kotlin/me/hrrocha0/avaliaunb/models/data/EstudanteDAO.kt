@@ -16,10 +16,10 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
         null
     }
 
-    override fun read(key: String) = try {
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Estudante
-            WHERE matricula = '$key'
+            WHERE matricula = '${keys[0]}'
         """.trimIndent()
 
         executeSql(sql).first()
@@ -27,17 +27,18 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
         null
     }
 
-    override fun update(model: EstudanteModel) = try {
+    override fun update(model: EstudanteModel, vararg keys: String) = try {
         val sql = """
             UPDATE Estudante
-            SET nome = '${model.nome}',
+            SET matricula = '${model.matricula}'
+                nome = '${model.nome}',
                 email = '${model.email}',
                 senha = '${model.senha}',
-                admin = ${if (model.administrador) 1 else 0},
-                id_curso = ${model.codigoCurso}
-            WHERE matricula = '${model.matricula}' 
+                administrador = ${if (model.administrador) 1 else 0},
+                codigo_curso = ${model.codigoCurso}
+            WHERE matricula = '${keys[0]}' 
         """.trimIndent()
-        val estudante = read(model.matricula)
+        val estudante = read(*keys)
 
         executeSql(sql)
         estudante
@@ -45,12 +46,12 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
         null
     }
 
-    override fun delete(key: String) = try {
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Estudante
-            WHERE matricula = '$key'
+            WHERE matricula = '${keys[0]}'
         """.trimIndent()
-        val estudante = read(key)
+        val estudante = read(*keys)
 
         executeSql(sql)
         estudante
@@ -70,9 +71,9 @@ object EstudanteDAO : ReadWriteDAO<EstudanteModel> {
         val nome = resultSet.getString("nome")
         val email = resultSet.getString("email")
         val senha = resultSet.getString("senha")
-        val admin = resultSet.getBoolean("admin")
-        val idCurso = resultSet.getInt("id_curso")
+        val administrador = resultSet.getBoolean("admin")
+        val codigoCurso = resultSet.getInt("codigo_curso")
 
-        return EstudanteModel(matricula, nome, email, senha, admin, idCurso)
+        return EstudanteModel(matricula, nome, email, senha, administrador, codigoCurso)
     }
 }

@@ -16,10 +16,10 @@ object CursoDAO : ReadWriteDAO<CursoModel> {
         null
     }
 
-    override fun read(key: String) = try {
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Curso
-            WHERE id = $key
+            WHERE codigo = ${keys[0]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -27,14 +27,15 @@ object CursoDAO : ReadWriteDAO<CursoModel> {
         null
     }
 
-    override fun update(model: CursoModel) = try {
+    override fun update(model: CursoModel, vararg keys: String) = try {
         val sql = """
             UPDATE Curso
-            SET nome = '${model.nome}',
-                id_departamento = ${model.codigoDepto}
-            WHERE id = ${model.codigo}
+            SET codigo = ${model.codigo},
+                nome = '${model.nome}',
+                codigo_depto = ${model.codigoDepto}
+            WHERE codigo = ${keys[0]}
         """.trimIndent()
-        val curso = read(model.codigo.toString())
+        val curso = read(*keys)
 
         executeSql(sql)
         curso
@@ -42,12 +43,12 @@ object CursoDAO : ReadWriteDAO<CursoModel> {
         null
     }
 
-    override fun delete(key: String) = try {
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Curso
-            WHERE id = $key
+            WHERE codigo = ${keys[0]}
         """.trimIndent()
-        val curso = read(key)
+        val curso = read(*keys)
 
         executeSql(sql)
         curso
@@ -63,10 +64,10 @@ object CursoDAO : ReadWriteDAO<CursoModel> {
     }
 
     override fun transform(resultSet: ResultSet): CursoModel {
-        val id = resultSet.getInt("id")
+        val codigo = resultSet.getInt("codigo")
         val nome = resultSet.getString("nome")
-        val idDepartamento = resultSet.getInt("id_departamento")
+        val codigoDepto = resultSet.getInt("codigo_depto")
 
-        return CursoModel(id, nome, idDepartamento)
+        return CursoModel(codigo, nome, codigoDepto)
     }
 }

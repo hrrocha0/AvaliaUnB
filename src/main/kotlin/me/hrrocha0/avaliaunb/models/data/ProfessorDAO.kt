@@ -7,7 +7,7 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     override fun create(model: ProfessorModel) = try {
         val sql = """
             INSERT INTO Professor
-            VALUES (${model.id}, '${model.matricula}', '${model.nome}', '${model.email}')
+            VALUES ('${model.nome}', ${model.codigoDepto}, ${model.codigoPouD})
         """.trimIndent()
 
         executeSql(sql)
@@ -16,10 +16,10 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
         null
     }
 
-    override fun read(key: String) = try {
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Professor
-            WHERE id = $key
+            WHERE nome = '${keys[0]}'
         """.trimIndent()
 
         executeSql(sql).first()
@@ -27,15 +27,15 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
         null
     }
 
-    override fun update(model: ProfessorModel) = try {
+    override fun update(model: ProfessorModel, vararg keys: String) = try {
         val sql = """
             UPDATE Professor
-            SET matricula = '${model.matricula}',
-                nome = '${model.nome}',
-                email = '${model.email}'
-            WHERE id = ${model.id} 
+            SET nome = '${model.nome}',
+                codigo_depto = ${model.codigoDepto},
+                codigo_p_ou_d = ${model.codigoPouD}
+            WHERE nome = '${keys[0]}' 
         """.trimIndent()
-        val professor = read(model.id.toString())
+        val professor = read(*keys)
 
         executeSql(sql)
         professor
@@ -43,12 +43,12 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
         null
     }
 
-    override fun delete(key: String) = try {
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Professor
-            WHERE id = $key
+            WHERE nome = '${keys[0]}'
         """.trimIndent()
-        val professor = read(key)
+        val professor = read(*keys)
 
         executeSql(sql)
         professor
@@ -64,11 +64,10 @@ object ProfessorDAO : ReadWriteDAO<ProfessorModel> {
     }
 
     override fun transform(resultSet: ResultSet): ProfessorModel {
-        val id = resultSet.getInt("id")
-        val matricula = resultSet.getString("matricula")
         val nome = resultSet.getString("nome")
-        val email = resultSet.getString("email")
+        val codigoDepto = resultSet.getInt("codigo_depto")
+        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
 
-        return ProfessorModel(id, matricula, nome, email)
+        return ProfessorModel(nome, codigoDepto, codigoPouD)
     }
 }

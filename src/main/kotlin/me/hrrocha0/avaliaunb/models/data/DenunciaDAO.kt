@@ -16,11 +16,10 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
         null
     }
 
-    override fun read(key: String) = try {
-        val (idPouD, idAvaliacao, id) = key.split(",")
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Denuncia
-            WHERE id_p_ou_d = $idPouD AND id_avaliacao=$idAvaliacao AND id = $id
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo_avaliacao=${keys[1]} AND codigo = ${keys[2]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -28,15 +27,18 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
         null
     }
 
-    override fun update(model: DenunciaModel) = try {
+    override fun update(model: DenunciaModel, vararg keys: String) = try {
         val sql = """
             UPDATE Denuncia
-            SET comentario = '${model.comentario}',
+            SET codigo_p_ou_d = ${model.codigoPouD},
+                codigo_avaliacao = ${model.codigoAvaliacao},
+                codigo = ${model.codigo},
+                comentario = '${model.comentario}',
                 matricula_estudante = '${model.matriculaEstudante}',
-                matricula_avaliador = '${model.matriculaAdministrador}'
-            WHERE id_p_ou_d = ${model.codigoPouD} AND id_avaliacao = ${model.codigoAvaliacao} AND id = ${model.codigo} 
+                matricula_administrador = '${model.matriculaAdministrador}'
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo_avaliacao = ${keys[1]} AND codigo = ${keys[2]} 
         """.trimIndent()
-        val denuncia = read("${model.codigoPouD},${model.codigoAvaliacao},${model.codigo}")
+        val denuncia = read(*keys)
 
         executeSql(sql)
         denuncia
@@ -44,13 +46,12 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
         null
     }
 
-    override fun delete(key: String) = try {
-        val (idPouD, idAvaliacao, id) = key.split(",")
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Denuncia
-            WHERE id_p_ou_d = $idPouD AND id_avaliacao = $idAvaliacao AND id = $id
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo_avaliacao = ${keys[1]} AND codigo = ${keys[2]}
         """.trimIndent()
-        val denuncia = read(key)
+        val denuncia = read(*keys)
 
         executeSql(sql)
         denuncia
@@ -66,13 +67,13 @@ object DenunciaDAO : ReadWriteDAO<DenunciaModel> {
     }
 
     override fun transform(resultSet: ResultSet): DenunciaModel {
-        val idPouD = resultSet.getInt("id_p_ou_d")
-        val idAvaliacao = resultSet.getInt("id_avaliacao")
-        val id = resultSet.getInt("id")
+        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
+        val codigoAvaliacao = resultSet.getInt("codigo_avaliacao")
+        val codigo = resultSet.getInt("codigo")
         val comentario = resultSet.getString("comentario")
         val matriculaEstudante = resultSet.getString("matricula_estudante")
-        val matriculaAvaliador = resultSet.getString("matricula_avaliador")
+        val matriculaAdministrador = resultSet.getString("matricula_administrador")
 
-        return DenunciaModel(idPouD, idAvaliacao, id, comentario, matriculaEstudante, matriculaAvaliador)
+        return DenunciaModel(codigoPouD, codigoAvaliacao, codigo, comentario, matriculaEstudante, matriculaAdministrador)
     }
 }

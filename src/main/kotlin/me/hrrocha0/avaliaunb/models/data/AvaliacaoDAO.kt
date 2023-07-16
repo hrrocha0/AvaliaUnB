@@ -16,11 +16,10 @@ object AvaliacaoDAO : ReadWriteDAO<AvaliacaoModel> {
         null
     }
 
-    override fun read(key: String) = try {
-        val (idPouD, id) = key.split(",")
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Avaliacao
-            WHERE id_p_ou_d = $idPouD AND id = $id
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo = ${keys[1]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -28,15 +27,17 @@ object AvaliacaoDAO : ReadWriteDAO<AvaliacaoModel> {
         null
     }
 
-    override fun update(model: AvaliacaoModel) = try {
+    override fun update(model: AvaliacaoModel, vararg keys: String) = try {
         val sql = """
             UPDATE Avaliacao
-            SET nota = ${model.nota},
+            SET codigo_p_ou_d = ${model.codigoPouD},
+                codigo = ${model.codigo},
+                nota = ${model.nota},
                 comentario = '${model.comentario}',
                 matricula_estudante = '${model.matriculaEstudante}'
-            WHERE id_p_ou_d = ${model.codigoPouD} AND id = ${model.codigo} 
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo = ${keys[1]} 
         """.trimIndent()
-        val avaliacao = read("${model.codigoPouD},${model.codigo}")
+        val avaliacao = read(*keys)
 
         executeSql(sql)
         avaliacao
@@ -44,13 +45,12 @@ object AvaliacaoDAO : ReadWriteDAO<AvaliacaoModel> {
         null
     }
 
-    override fun delete(key: String) = try {
-        val (idPouD, id) = key.split(",")
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Avaliacao
-            WHERE id_p_ou_d = $idPouD AND id = $id
+            WHERE codigo_p_ou_d = ${keys[0]} AND codigo = ${keys[1]}
         """.trimIndent()
-        val avaliacao = read(key)
+        val avaliacao = read(*keys)
 
         executeSql(sql)
         avaliacao
@@ -66,12 +66,12 @@ object AvaliacaoDAO : ReadWriteDAO<AvaliacaoModel> {
     }
 
     override fun transform(resultSet: ResultSet): AvaliacaoModel {
-        val idPouD = resultSet.getInt("id_p_ou_d")
-        val id = resultSet.getInt("id")
+        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
+        val codigo = resultSet.getInt("codigo")
         val nota = resultSet.getInt("nota")
         val comentario = resultSet.getString("comentario")
         val matriculaEstudante = resultSet.getString("matricula_estudante")
 
-        return AvaliacaoModel(idPouD, id, nota, comentario, matriculaEstudante)
+        return AvaliacaoModel(codigoPouD, codigo, nota, comentario, matriculaEstudante)
     }
 }

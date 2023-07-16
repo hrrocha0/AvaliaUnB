@@ -7,7 +7,7 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
     override fun create(model: DisciplinaModel) = try {
         val sql = """
             INSERT INTO Disciplina
-            VALUES (${model.id}, '${model.codigo}', '${model.nome}', '${model.descricao}', ${model.codigoDepto})
+            VALUES ('${model.codigo}', '${model.nome}', ${model.codigoDepto}, ${model.codigoPouD})
         """.trimIndent()
 
         executeSql(sql)
@@ -16,10 +16,10 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
         null
     }
 
-    override fun read(key: String) = try {
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Disciplina
-            WHERE id = $key
+            WHERE codigo = '${keys[0]}'
         """.trimIndent()
 
         executeSql(sql).first()
@@ -27,16 +27,16 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
         null
     }
 
-    override fun update(model: DisciplinaModel) = try {
+    override fun update(model: DisciplinaModel, vararg keys: String) = try {
         val sql = """
             UPDATE Disciplina
             SET codigo = '${model.codigo}',
                 nome = '${model.nome}',
-                descricao = '${model.descricao}',
-                id_departamento = ${model.codigoDepto}
-            WHERE id = ${model.id} 
+                codigo_depto = ${model.codigoDepto},
+                codigo_p_ou_d = ${model.codigoPouD}
+            WHERE codigo = '${keys[0]}'
         """.trimIndent()
-        val disciplina = read(model.id.toString())
+        val disciplina = read(*keys)
 
         executeSql(sql)
         disciplina
@@ -44,12 +44,12 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
         null
     }
 
-    override fun delete(key: String) = try {
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Disciplina
-            WHERE id = $key
+            WHERE codigo = '${keys[0]}'
         """.trimIndent()
-        val disciplina = read(key)
+        val disciplina = read(*keys)
 
         executeSql(sql)
         disciplina
@@ -65,12 +65,11 @@ object DisciplinaDAO : ReadWriteDAO<DisciplinaModel> {
     }
 
     override fun transform(resultSet: ResultSet): DisciplinaModel {
-        val id = resultSet.getInt("id")
         val codigo = resultSet.getString("codigo")
         val nome = resultSet.getString("nome")
-        val descricao = resultSet.getString("descricao")
-        val idDepartamento = resultSet.getInt("id_departamento")
+        val codigoDepto = resultSet.getInt("codigo_depto")
+        val codigoPouD = resultSet.getInt("codigo_p_ou_d")
 
-        return DisciplinaModel(id, codigo, nome, descricao, idDepartamento)
+        return DisciplinaModel(codigo, nome, codigoDepto, codigoPouD)
     }
 }

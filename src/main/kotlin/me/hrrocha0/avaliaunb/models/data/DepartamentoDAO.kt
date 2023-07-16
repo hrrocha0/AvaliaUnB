@@ -7,7 +7,7 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
     override fun create(model: DepartamentoModel) = try {
         val sql = """
             INSERT INTO Departamento
-            VALUES (${model.codigo}, '${model.sigla}', '${model.nome}')
+            VALUES (${model.codigo}, '${model.nome}')
         """.trimIndent()
 
         executeSql(sql)
@@ -16,10 +16,10 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
         null
     }
 
-    override fun read(key: String) = try {
+    override fun read(vararg keys: String) = try {
         val sql = """
             SELECT * FROM Departamento
-            WHERE id = $key
+            WHERE codigo = ${keys[0]}
         """.trimIndent()
 
         executeSql(sql).first()
@@ -27,14 +27,14 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
         null
     }
 
-    override fun update(model: DepartamentoModel) = try {
+    override fun update(model: DepartamentoModel, vararg keys: String) = try {
         val sql = """
             UPDATE Departamento
-            SET sigla = '${model.sigla}',
+            SET codigo = ${model.codigo},
                 nome = '${model.nome}'
-            WHERE id = ${model.codigo} 
+            WHERE codigo = ${keys[0]} 
         """.trimIndent()
-        val departamento = read(model.codigo.toString())
+        val departamento = read(*keys)
 
         executeSql(sql)
         departamento
@@ -42,12 +42,12 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
         null
     }
 
-    override fun delete(key: String) = try {
+    override fun delete(vararg keys: String) = try {
         val sql = """
             DELETE FROM Departamento
-            WHERE id = $key
+            WHERE codigo = ${keys[0]}
         """.trimIndent()
-        val departamento = read(key)
+        val departamento = read(*keys)
 
         executeSql(sql)
         departamento
@@ -63,10 +63,9 @@ object DepartamentoDAO : ReadWriteDAO<DepartamentoModel> {
     }
 
     override fun transform(resultSet: ResultSet): DepartamentoModel {
-        val id = resultSet.getInt("id")
-        val sigla = resultSet.getString("sigla")
+        val codigo = resultSet.getInt("codigo")
         val nome = resultSet.getString("nome")
 
-        return DepartamentoModel(id, sigla, nome)
+        return DepartamentoModel(codigo, nome)
     }
 }
